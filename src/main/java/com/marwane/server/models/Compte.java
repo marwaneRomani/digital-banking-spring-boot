@@ -1,5 +1,6 @@
 package com.marwane.server.models;
 
+import com.marwane.server.models.users.Agent;
 import com.marwane.server.models.users.Client;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,11 @@ public abstract class Compte {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+
+    @ManyToOne
+    @JoinColumn(name = "agent_id")
+    private Agent managedBy;
 
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
     private List<Operation> operations;
