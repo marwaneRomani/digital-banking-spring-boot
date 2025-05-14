@@ -1,0 +1,35 @@
+package com.marwane.server.models;
+
+import com.marwane.server.models.users.Client;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type_compte", discriminatorType = DiscriminatorType.STRING)
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public abstract class Compte {
+    @Id
+    private String code;
+
+    private double solde;
+    private Date dateCreation;
+
+    @Enumerated(EnumType.STRING)
+    private AccountStatus status;
+
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
+    private List<Operation> operations;
+}
