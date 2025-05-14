@@ -1,6 +1,6 @@
 package com.marwane.server.utils;
 
-import com.marwane.server.models.users.UserDetailsImpl;
+import com.marwane.server.service.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class JwtUtil {
     String secretKey = "";
 
-    public String generateToken(UserDetailsImpl userDetails) {
+    public String generateToken(UserDetailsServiceImpl userDetails) {
         Map<String, Object> extraClaims = new HashMap<>() {{
             put("type", "access");
             put("email", userDetails.getUsername());

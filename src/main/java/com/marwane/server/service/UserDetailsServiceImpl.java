@@ -1,5 +1,8 @@
-package com.marwane.server.models.users;
+package com.marwane.server.service;
 
+import com.marwane.server.models.users.Agent;
+import com.marwane.server.models.users.Client;
+import com.marwane.server.models.users.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,16 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserDetailsImpl implements UserDetails {
+public class UserDetailsServiceImpl implements UserDetails {
     private String username;
     private String password;
     private String role;
 
-    public UserDetailsImpl(User user) {
+    public UserDetailsServiceImpl(User user) {
         this.username = user.getEmail();
         this.password = user.getPassword();
- //       this.role = user instanceof Agent ? "AGENT" : (user instanceof  Customer ? "CUSTOMER" : "ADMIN");
-        this.role = "CUSTOMER";
+        this.role = user instanceof Agent ? "AGENT" : (user instanceof Client ? "CUSTOMER" : "ADMIN");
     }
 
     @Override
