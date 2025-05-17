@@ -1,5 +1,6 @@
 package com.marwane.server.config;
 
+import com.marwane.server.service.auth.AuthenticationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -40,11 +41,33 @@ public class SecurityConfiguration {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
-        //TODO: add routes to be secured
         http.authorizeHttpRequests(configurer -> {
             configurer
-                    .requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
+                    .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+
+                    .requestMatchers(HttpMethod.GET, "/api/comptes/**").hasAnyAuthority("CUSTOMER", "AGENT")
+                    .requestMatchers(HttpMethod.POST, "/api/comptes/**").hasAnyAuthority("CUSTOMER","AGENT")
+                    .requestMatchers(HttpMethod.PUT, "/api/comptes/**").hasAnyAuthority("CUSTOMER","AGENT")
+                    .requestMatchers(HttpMethod.DELETE, "/api/comptes/**").hasAnyAuthority("CUSTOMER","AGENT")
+                    .requestMatchers(HttpMethod.PATCH, "/api/comptes/**").hasAnyAuthority("CUSTOMER","AGENT")
+
+                    .requestMatchers(HttpMethod.GET, "/api/clients/**").hasAnyAuthority("CUSTOMER", "AGENT")
+                    .requestMatchers(HttpMethod.POST, "/api/clients").hasAnyAuthority("AGENT")
+                    .requestMatchers(HttpMethod.PUT, "/api/clients").hasAnyAuthority("AGENT")
+                    .requestMatchers(HttpMethod.DELETE, "/api/clients/**").hasAnyAuthority("AGENT")
+                    .requestMatchers(HttpMethod.PATCH, "/api/clients/**").hasAnyAuthority("AGENT")
+
+                    .requestMatchers(HttpMethod.GET, "/api/operations/**").hasAnyAuthority("CUSTOMER", "AGENT")
+                    .requestMatchers(HttpMethod.POST, "/api/operations/**").hasAnyAuthority("CUSTOMER","AGENT")
+                    .requestMatchers(HttpMethod.PUT, "/api/operations/**").hasAnyAuthority("CUSTOMER","AGENT")
+                    .requestMatchers(HttpMethod.DELETE, "/api/operations/**").hasAnyAuthority("CUSTOMER","AGENT")
+                    .requestMatchers(HttpMethod.PATCH, "/api/operations/**").hasAnyAuthority("CUSTOMER","AGENT")
+            ;
         });
+
+
+
+
 
         http.sessionManagement(sessionManagement -> {
             sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -71,7 +94,7 @@ public class SecurityConfiguration {
         CorsConfiguration subscriberConfig = new CorsConfiguration();
         subscriberConfig.addAllowedOrigin(CorsConfiguration.ALL);
         subscriberConfig.addAllowedMethod("POST");
-        subscriberConfig.addAllowedHeader("Content-Type"); // Add the required headers
+        subscriberConfig.addAllowedHeader("Content-Type");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", frontendConfig);
