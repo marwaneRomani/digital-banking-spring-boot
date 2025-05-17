@@ -29,7 +29,7 @@ public abstract class User  implements UserDetails {
     @Column(nullable = false)
     private String telephone;
 
-    @Column(nullable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false)
     private LocalDateTime dateCreation;
 
     public User() {

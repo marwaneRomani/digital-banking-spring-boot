@@ -1,4 +1,4 @@
-package com.marwane.server.service;
+package com.marwane.server.service.auth;
 
 import com.marwane.server.models.users.Agent;
 import com.marwane.server.models.users.Client;
@@ -10,15 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserDetailsServiceImpl implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     private String username;
     private String password;
     private String role;
 
-    public UserDetailsServiceImpl(User user) {
+    public UserDetailsImpl(User user) {
         this.username = user.getEmail();
         this.password = user.getPassword();
-        this.role = user instanceof Agent ? "AGENT" : (user instanceof Client ? "CUSTOMER" : "ADMIN");
+        this.role = user instanceof Agent ? "AGENT" : (user instanceof Client ? "CLIENT" : "ADMIN");
     }
 
     @Override

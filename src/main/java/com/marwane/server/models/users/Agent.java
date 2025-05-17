@@ -20,7 +20,10 @@ import java.util.List;
 @Builder
 public class Agent extends User {
 
-    @OneToMany(mappedBy = "processedBy", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "createdBy")
+    private List<Client> clientsManaged;
+
+    @OneToMany(mappedBy = "managedBy", cascade = CascadeType.ALL)
     private List<Compte> managedAccounts;
 
     @Override

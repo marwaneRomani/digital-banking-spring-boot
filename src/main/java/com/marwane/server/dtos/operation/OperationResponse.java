@@ -1,16 +1,14 @@
-package com.marwane.server.dtos;
+package com.marwane.server.dtos.operation;
 
 import com.marwane.server.models.TypeOperation;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
 import java.util.Date;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Builder
-public class OperationDTO {
+public class OperationResponse {
     private Long id;
     private Date dateOperation;
     private double montant;

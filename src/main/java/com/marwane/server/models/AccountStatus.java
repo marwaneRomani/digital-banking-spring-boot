@@ -1,12 +1,7 @@
 package com.marwane.server.models;
 
 public enum AccountStatus {
-    ACTIVE,
-    INACTIVE,
+    CREATED,
+    ACTIVATED,
     SUSPENDED,
-    CLOSED,
-    PENDING,
-    BLOCKED,
-    FROZEN,
-    DORMANT
 }

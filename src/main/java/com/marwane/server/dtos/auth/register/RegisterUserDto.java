@@ -1,4 +1,4 @@
-package com.marwane.server.dtos.register;
+package com.marwane.server.dtos.auth.register;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

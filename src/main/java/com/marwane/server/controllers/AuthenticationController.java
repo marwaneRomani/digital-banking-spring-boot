@@ -1,11 +1,11 @@
 package com.marwane.server.controllers;
 
-import com.marwane.server.dtos.login.LoginReponse;
-import com.marwane.server.dtos.login.LoginUserDto;
-import com.marwane.server.dtos.register.RegisterUserDto;
+import com.marwane.server.dtos.auth.login.LoginReponse;
+import com.marwane.server.dtos.auth.login.LoginUserDto;
+import com.marwane.server.dtos.auth.register.RegisterUserDto;
 import com.marwane.server.models.users.User;
-import com.marwane.server.service.AuthenticationService;
-import com.marwane.server.service.UserDetailsServiceImpl;
+import com.marwane.server.service.auth.AuthenticationService;
+import com.marwane.server.service.auth.UserDetailsImpl;
 import com.marwane.server.utils.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +55,7 @@ public class AuthenticationController {
             Authentication authentication =
                     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword()));
 
-            UserDetailsServiceImpl user = (UserDetailsServiceImpl) authentication.getPrincipal();
+            UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
 
             String token = jwtUtil.generateToken(user);
             LoginReponse loginRes = new LoginReponse(user.getUsername(),token);

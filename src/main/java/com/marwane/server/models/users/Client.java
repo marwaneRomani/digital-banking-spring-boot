@@ -1,9 +1,7 @@
 package com.marwane.server.models.users;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import com.marwane.server.models.Compte;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -19,6 +17,8 @@ import java.util.List;
 @Builder
 public class Client extends User {
 
+    @ManyToOne
+    private Agent createdBy;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Compte> comptes;
@@ -31,6 +31,6 @@ public class Client extends User {
 
     @Override
     public String getUsername() {
-        return "";
+        return this.getEmail();
     }
 }
