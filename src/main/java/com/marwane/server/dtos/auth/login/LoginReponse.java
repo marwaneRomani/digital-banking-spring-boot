@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 public class LoginReponse {
     private String email;
     private String token;
-
 }

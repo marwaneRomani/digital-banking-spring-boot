@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public abstract class Compte {
+
     @Id
     private String code;
 

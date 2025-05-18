@@ -3,18 +3,21 @@ package com.marwane.server.controllers;
 import com.marwane.server.dtos.compte.CompteCourantDto;
 import com.marwane.server.dtos.compte.CompteDto;
 import com.marwane.server.dtos.compte.CompteEpargneDto;
+import com.marwane.server.models.AccountStatus;
 import com.marwane.server.service.compte.CompteService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/comptes")
-@RequiredArgsConstructor
 public class CompteController {
 
     private final CompteService compteService;
+
+    public CompteController(CompteService compteService) {
+        this.compteService = compteService;
+    }
 
     @PostMapping("/courant")
     public CompteCourantDto createCompteCourant(@RequestBody CompteCourantDto dto) {
@@ -25,6 +28,13 @@ public class CompteController {
     public CompteEpargneDto createCompteEpargne(@RequestBody CompteEpargneDto dto) {
         return compteService.createCompteEpargne(dto);
     }
+
+    @PostMapping("/status")
+    public CompteDto changeCompteStatus(@RequestParam String code, @RequestParam AccountStatus status) {
+
+        return compteService.changeCompteStatus(status, code);
+    }
+
 
     @GetMapping("/{code}")
     public CompteDto getCompteByCode(@PathVariable String code) {

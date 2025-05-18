@@ -10,17 +10,11 @@ import lombok.experimental.SuperBuilder;
 import java.time.LocalDateTime;
 
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompteCourantDto extends CompteDto {
     private double decouvert;
-
-
-    @Builder
-    public CompteCourantDto(String code, double solde, LocalDateTime dateCreation, AccountStatus status, Long clientId, Long agentId, double decouvert) {
-        super(code, solde, dateCreation, status, clientId, agentId);
-        this.decouvert = decouvert;
-    }
 }
 
 

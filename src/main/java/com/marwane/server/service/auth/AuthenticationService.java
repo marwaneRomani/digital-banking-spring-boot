@@ -53,6 +53,8 @@ public class AuthenticationService implements UserDetailsService {
         client.setDateCreation(LocalDateTime.now());
         client.setComptes(new ArrayList<>());
 
+        client.setCreatedBy(null);
+
         return clientRepository.save(client);
     }
 

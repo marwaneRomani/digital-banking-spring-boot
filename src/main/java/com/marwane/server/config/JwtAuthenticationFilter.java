@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter implements Filter {
         }
 
         if (isABoolean(token)) {
-//            token = token.substring(7);
+            token = token.substring(7);
             String username = jwtUtil.extractUserName(token);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

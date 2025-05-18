@@ -10,14 +10,15 @@ import lombok.experimental.SuperBuilder;
 import java.time.LocalDateTime;
 
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompteEpargneDto extends CompteDto {
     private double tauxInteret;
 
-    @Builder
-    public CompteEpargneDto(String code, double solde, LocalDateTime dateCreation, AccountStatus status, Long clientId, Long agentId, double tauxInteret) {
-        super(code, solde, dateCreation, status, clientId, agentId);
-        this.tauxInteret = tauxInteret;
-    }
+//    @Builder
+//    public CompteEpargneDto(String code, double solde, LocalDateTime dateCreation, AccountStatus status, Long clientId, Long agentId, double tauxInteret) {
+//        super(code, solde, dateCreation, status, clientId, agentId);
+//        this.tauxInteret = tauxInteret;
+//    }
 }

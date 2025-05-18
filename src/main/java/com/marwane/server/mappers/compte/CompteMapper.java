@@ -2,6 +2,7 @@ package com.marwane.server.mappers.compte;
 import com.marwane.server.dtos.compte.CompteCourantDto;
 import com.marwane.server.dtos.compte.CompteDto;
 import com.marwane.server.dtos.compte.CompteEpargneDto;
+import com.marwane.server.mappers.client.ClientMapper;
 import com.marwane.server.models.Compte;
 import com.marwane.server.models.CompteCourant;
 import com.marwane.server.models.CompteEpargne;
@@ -9,6 +10,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CompteMapper {
+
+    private final ClientMapper clientMapper;
+
+    public CompteMapper(ClientMapper clientMapper) {
+        this.clientMapper = clientMapper;
+    }
 
     public CompteDto toDto(Compte compte) {
         if (compte instanceof CompteCourant courant) {
@@ -23,21 +30,23 @@ public class CompteMapper {
 
         return CompteCourantDto.builder()
                 .code(compte.getCode())
+                .type("COURANT")
                 .solde(compte.getSolde())
                 .dateCreation(compte.getDateCreation())
                 .status(compte.getStatus())
-                .clientId(compte.getClient().getId())
                 .decouvert(compte.getDecouvert())
+                .client(clientMapper.toDto(compte.getClient()))
                 .build();
     }
 
     public CompteEpargneDto toCompteEpargneDto(CompteEpargne compte) {
         return CompteEpargneDto.builder()
                 .code(compte.getCode())
+                .type("EPARGNE")
                 .solde(compte.getSolde())
                 .dateCreation(compte.getDateCreation())
                 .status(compte.getStatus())
-                .clientId(compte.getClient().getId())
+                .client(clientMapper.toDto(compte.getClient()))
                 .tauxInteret(compte.getTauxInteret())
                 .build();
     }

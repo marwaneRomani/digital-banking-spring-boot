@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class JwtUtil {
-    String secretKey = "";
+    @Value("${security.jwt.secret-key}")
+    String secretKey;
 
     public String generateToken(UserDetailsImpl userDetails) {
         Map<String, Object> extraClaims = new HashMap<>() {{

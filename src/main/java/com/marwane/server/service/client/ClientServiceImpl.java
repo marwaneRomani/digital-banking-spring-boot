@@ -8,6 +8,7 @@ import com.marwane.server.repositories.AgentRepository;
 import com.marwane.server.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class ClientServiceImpl implements ClientService {
 
 
         Client client = clientMapper.toEntity(clientDto);
+
         client.setCreatedBy(agent);
 
         Client savedClient = clientRepository.save(client);
